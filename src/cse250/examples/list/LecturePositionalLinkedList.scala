@@ -66,16 +66,19 @@ class LecturePositionalLinkedList[A] extends collection.mutable.Seq[A]
     // List non-empty
     else {
       // Index 0 (new head)
-      if (idx == 0) _headNode = new DNode(elem, _headNode, null)
+      if (idx == 0) {
+        _headNode = new DNode(elem, _next = _headNode, _prev = null)
+        _headNode._next._prev = _headNode
+      }
       // Between two nodes (not head, not tail)
       else if (idx < _numStored) {
         var currentNode = _headNode
         for (_ <- 0 until idx - 1) currentNode = currentNode._next
-        currentNode._next = new DNode(elem, currentNode._next, currentNode)
+        currentNode._next = new DNode(elem, _next = currentNode._next, _prev = currentNode)
       }
       // Index _numStored (new tail)
       else {
-        _tailNode._next = new DNode(elem, null, _tailNode)
+        _tailNode._next = new DNode(elem, _next = null, _prev = _tailNode)
         _tailNode = _tailNode._next
       }
       _numStored += 1
