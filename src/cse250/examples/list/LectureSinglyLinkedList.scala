@@ -83,7 +83,17 @@ class LectureSinglyLinkedList[A] extends collection.mutable.Seq[A]
     }
   }
 
-  override def iterator: Iterator[A] = ???
+  override def iterator: Iterator[A] = new Iterator[A] {
+    var _currentNode = _headNode
+    override def hasNext: Boolean = _currentNode != null
+
+    // Valid as long as hasNext is true.
+    override def next: A = {
+      val retval = _currentNode._value
+      _currentNode = _currentNode._next
+      retval
+    }
+  }
 
   override def length: Int = _numStored
 }
