@@ -5,7 +5,7 @@ class LecturePositionalLinkedList[A] extends collection.mutable.Seq[A]
 
   class DNode[A](var _value: A, var _next: DNode[A], var _prev: DNode[A])
 
-  class Position[A](var _currentNode: DNode[A]) extends Iterator[A] {
+  class Position(var _currentNode: DNode[A]) extends Iterator[A] {
     override def hasNext: Boolean = _currentNode != null
 
     // Valid as long as hasNext is true.
@@ -15,11 +15,14 @@ class LecturePositionalLinkedList[A] extends collection.mutable.Seq[A]
       retval
     }
 
-    def hasPrev: Boolean = _currentNode != null && _currentNode._prev != null
+    def hasPrev: Boolean = (_currentNode != null && _currentNode._prev != null) || (_currentNode == null && _tailNode != null)
 
     // Valid as long as hasPrev is true.
     def prev: A = {
-      _currentNode = _currentNode._prev
+      // If we moved off the end of the list, move back to tail.
+      if (_currentNode == null) _currentNode = _tailNode
+      // Otherwise, move back one node.
+      else _currentNode = _currentNode._prev
       _currentNode._value
     }
 
@@ -38,7 +41,7 @@ class LecturePositionalLinkedList[A] extends collection.mutable.Seq[A]
     currentNode._value
   }
 
-  def position(idx: Int): Position[A] = {
+  def position(idx: Int): Position = {
     require(0 <= idx && idx < _numStored)
     var currentNode = _headNode
     for (_ <- 0 until idx) currentNode = currentNode._next
@@ -79,7 +82,7 @@ class LecturePositionalLinkedList[A] extends collection.mutable.Seq[A]
     }
   }
 
-  def insert(pos: Position[A], elem: A): Unit = {
+  def insert(pos: Position, elem: A): Unit = {
     // Inserting the element after pos.next.
     require(pos.hasNext)
     // posNextNode holds the value we are inserting before.
@@ -135,7 +138,7 @@ class LecturePositionalLinkedList[A] extends collection.mutable.Seq[A]
     }
   }
 
-  def remove(pos: Position[A]): Unit = {
+  def remove(pos: Position): Unit = {
     // Removing the element after pos.next.
     require(pos.hasNext)
     val posNextNode = pos._currentNode._next
@@ -152,7 +155,7 @@ class LecturePositionalLinkedList[A] extends collection.mutable.Seq[A]
     _numStored -= 1
   }
 
-  override def iterator: Iterator[A] = new Position[A](_headNode)
+  override def iterator: Iterator[A] = new Position(_headNode)
 
   override def length: Int = _numStored
 }
