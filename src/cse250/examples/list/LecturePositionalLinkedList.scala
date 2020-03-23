@@ -1,7 +1,7 @@
 package cse250.examples.list
 
 class LecturePositionalLinkedList[A] extends collection.mutable.Seq[A]
-  with cse250.examples.types.ListADT[A] {
+  with cse250.examples.types.mutable.ListADT[A] {
 
   class DNode[A](var _value: A, var _next: DNode[A], var _prev: DNode[A])
 

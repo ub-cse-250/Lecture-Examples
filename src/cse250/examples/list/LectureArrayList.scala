@@ -3,7 +3,7 @@ package cse250.examples.list
 import scala.reflect.ClassTag
 
 class LectureArrayList[A: ClassTag](private var _capacity: Int = 10) extends collection.mutable.Seq[A]
-  with cse250.examples.types.ListADT[A] {
+  with cse250.examples.types.mutable.ListADT[A] {
 
   var _storage = new Array[A](_capacity)
   var _myLength = 0

@@ -1,4 +1,4 @@
-package cse250.examples.types
+package cse250.examples.types.mutable
 
 trait ListADT[A] {
   /** Gets the element at the specified index. */

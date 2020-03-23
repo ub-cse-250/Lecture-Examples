@@ -1,7 +1,7 @@
 package cse250.examples.list
 
 class LectureSinglyLinkedList[A] extends collection.mutable.Seq[A]
-  with cse250.examples.types.ListADT[A] {
+  with cse250.examples.types.mutable.ListADT[A] {
 
   class SNode[A](var _value: A, var _next: SNode[A])
 
