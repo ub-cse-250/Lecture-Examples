@@ -17,5 +17,5 @@ trait ListADT[A] {
    *  Get access to view all elements, in order, contained within the sequence. */
   def iterator: Iterator[A]
 
-  override def toString: String = iterator.toList.addString(new StringBuilder,",").result()
+  override def toString: String = iterator.toList.addString(new StringBuilder,"mutable.ListADT(",",",")").result()
 }
