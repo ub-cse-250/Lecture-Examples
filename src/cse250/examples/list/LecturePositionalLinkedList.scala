@@ -1,7 +1,9 @@
 package cse250.examples.list
 
+import cse250.examples.types.mutable.ListADT
+
 class LecturePositionalLinkedList[A] extends collection.mutable.Seq[A]
-  with cse250.examples.types.mutable.ListADT[A] {
+  with ListADT[A] {
 
   class DNode[A](var _value: A, var _next: DNode[A], var _prev: DNode[A])
 
@@ -41,6 +43,8 @@ class LecturePositionalLinkedList[A] extends collection.mutable.Seq[A]
     currentNode._value
   }
 
+  def apply(pos: Position): A = pos._currentNode._value
+
   def position(idx: Int): Position = {
     require(0 <= idx && idx < _numStored)
     var currentNode = _headNode
@@ -54,6 +58,8 @@ class LecturePositionalLinkedList[A] extends collection.mutable.Seq[A]
     for (_ <- 0 until idx) currentNode = currentNode._next
     currentNode._value = elem
   }
+
+  def update(pos: Position, elem: A): Unit = pos._currentNode._value = elem
 
   override def insert(idx: Int, elem: A): Unit = {
     require(0 <= idx && idx <= _numStored)
@@ -90,11 +96,11 @@ class LecturePositionalLinkedList[A] extends collection.mutable.Seq[A]
     require(pos.hasNext)
     // posNextNode holds the value we are inserting before.
     val posNextNode = pos._currentNode._next
-    val newNode = new DNode(_value = elem, _next = posNextNode, _prev = pos._currentNode)
+    val newNode = new DNode(_value = elem, _prev = pos._currentNode, _next = posNextNode)
     // Link in new node after position.
     pos._currentNode._next = newNode
     // Update tail or link posNextNode back to newNode.
-    if (newNode == null) _tailNode = newNode
+    if (posNextNode == null) _tailNode = newNode
     else posNextNode._prev = newNode
 
     _numStored += 1
@@ -143,7 +149,7 @@ class LecturePositionalLinkedList[A] extends collection.mutable.Seq[A]
 
   def remove(pos: Position): Unit = {
     // Removing the element after pos.next.
-    require(pos.hasNext)
+    require(pos._currentNode != null && pos._currentNode._next != null)
     val posNextNode = pos._currentNode._next
     // Link around node after pos._currentNode.
     if (posNextNode == _tailNode) {
@@ -152,7 +158,7 @@ class LecturePositionalLinkedList[A] extends collection.mutable.Seq[A]
     }
     else {
       pos._currentNode._next = posNextNode._next
-      posNextNode._next._next = pos._currentNode
+      posNextNode._next._prev = pos._currentNode
     }
 
     _numStored -= 1
