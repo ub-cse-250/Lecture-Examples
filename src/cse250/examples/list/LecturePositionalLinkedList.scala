@@ -90,7 +90,7 @@ class LecturePositionalLinkedList[A] extends collection.mutable.Seq[A]
     require(pos.hasNext)
     // posNextNode holds the value we are inserting before.
     val posNextNode = pos._currentNode._next
-    val newNode = new DNode(elem, pos._currentNode, posNextNode)
+    val newNode = new DNode(_value = elem, _next = posNextNode, _prev = pos._currentNode)
     // Link in new node after position.
     pos._currentNode._next = newNode
     // Update tail or link posNextNode back to newNode.
