@@ -48,13 +48,13 @@ sealed trait LectureImmutableLinkedList[+A] extends collection.immutable.Seq[A]
   def ::[B >: A](elem: B): LectureImmutableLinkedList[B] = ListNode[B](elem,this)
 
   override def iterator: Iterator[A] = new Iterator[A] {
-    var currentList = LectureImmutableLinkedList.this
+    var _currentList = LectureImmutableLinkedList.this
 
-    override def hasNext: Boolean = !currentList.isEmpty
+    override def hasNext: Boolean = !_currentList.isEmpty
 
     override def next: A = {
-      val retval = currentList.head
-      currentList = currentList.tail
+      val retval = _currentList.head
+      _currentList = _currentList.tail
       retval
     }
   }
