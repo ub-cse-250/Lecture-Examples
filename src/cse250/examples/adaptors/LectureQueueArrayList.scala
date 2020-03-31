@@ -1,6 +1,8 @@
 package cse250.examples.adaptors
 
-class LectureQueueArrayList[A]
+import scala.reflect.ClassTag
+
+class LectureQueueArrayList[A: ClassTag]
   extends cse250.examples.types.mutable.QueueADT[A] {
   private val _store = new cse250.examples.list.LectureArrayList[A]
 

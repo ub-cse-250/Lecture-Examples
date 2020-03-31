@@ -1,6 +1,8 @@
 package cse250.examples.adaptors
 
-class LectureStackArrayList[A]
+import scala.reflect.ClassTag
+
+class LectureStackArrayList[A: ClassTag]
   extends cse250.examples.types.mutable.StackADT[A] {
   private val _store = new cse250.examples.list.LectureArrayList[A]
 
