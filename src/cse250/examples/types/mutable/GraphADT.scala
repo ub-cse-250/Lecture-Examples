@@ -13,6 +13,7 @@ trait GraphADT[VType, EType] {
     protected val _elem: VType
     /** Gets the element associated with the Vertex object. */
     def elem: VType = _elem
+    def apply: VType = _elem
 
     /** Tests whether this Vertex is adjacent to Vertex v.
      *
@@ -33,6 +34,7 @@ trait GraphADT[VType, EType] {
 
     /** Gets the element associated with the Edge object. */
     def elem: EType = _elem
+    def apply: EType = _elem
 
     /** Gets a list of the endpoints of this edge in the order of _u followed by _v.
      *
