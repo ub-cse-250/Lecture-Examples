@@ -39,7 +39,7 @@ class LectureDoublyLinkedList[A] extends collection.mutable.Seq[A]
         _headNode._next._prev = _headNode
       }
       // Between two nodes (not head, not tail)
-      else if (idx < _numStored) {
+      else if (idx <= _numStored) {
         var currentNode = _headNode
         for (_ <- 0 until idx - 1) currentNode = currentNode._next
         currentNode._next = new DNode(elem, currentNode._next, currentNode)
