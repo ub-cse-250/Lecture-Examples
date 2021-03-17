@@ -5,7 +5,7 @@ trait QueueADT[A] {
 
   def front: A
 
-  def dequeue: A
+  def dequeue(): A
 
   def isEmpty: Boolean
 }

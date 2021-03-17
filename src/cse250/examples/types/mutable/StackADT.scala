@@ -5,7 +5,7 @@ trait StackADT[A] {
 
   def top: A
 
-  def pop: A
+  def pop(): A
 
   def isEmpty: Boolean
 }
