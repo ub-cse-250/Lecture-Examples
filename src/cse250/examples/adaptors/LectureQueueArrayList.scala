@@ -10,7 +10,7 @@ class LectureQueueArrayList[A: ClassTag]
 
   override def front: A = _store(0)
 
-  override def dequeue: A = _store.remove(0)
+  override def dequeue(): A = _store.remove(0)
 
   override def isEmpty: Boolean = _store.length == 0
 
