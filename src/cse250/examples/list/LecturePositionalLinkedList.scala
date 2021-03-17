@@ -38,9 +38,15 @@ class LecturePositionalLinkedList[A] extends collection.mutable.Seq[A]
 
   override def apply(idx: Int): A = {
     require(0 <= idx && idx < _numStored)
-    var currentNode = _headNode
-    for (_ <- 0 until idx) currentNode = currentNode._next
-    currentNode._value
+    if (idx == _numStored - 1) {
+      //Retrieve the tail node value
+      _tailNode._value
+    } else {
+      //Retrieve the node value at idx
+      var currentNode = _headNode
+      for (_ <- 0 until idx) currentNode = currentNode._next
+      currentNode._value
+    }
   }
 
   def apply(pos: Position): A = pos._currentNode._value
@@ -54,9 +60,15 @@ class LecturePositionalLinkedList[A] extends collection.mutable.Seq[A]
 
   override def update(idx: Int, elem: A): Unit = {
     require(0 <= idx && idx < _numStored)
-    var currentNode = _headNode
-    for (_ <- 0 until idx) currentNode = currentNode._next
-    currentNode._value = elem
+    if (idx == _numStored - 1) {
+      //Update the tail node value
+      _tailNode._value = elem
+    } else {
+      //Update the node value at idx
+      var currentNode = _headNode
+      for (_ <- 0 until idx) currentNode = currentNode._next
+      currentNode._value = elem
+    }
   }
 
   def update(pos: Position, elem: A): Unit = pos._currentNode._value = elem
